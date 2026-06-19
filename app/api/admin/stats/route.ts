@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
       supabase
         .from("bookings")
         .select("id, room_id, booking_type, start_at, end_at, guest_name, guest_phone, guest_email, note, status, created_at")
-        .gte("created_at", startOfMonth)
-        .lte("created_at", endOfMonth)
-        .order("created_at", { ascending: false }),
+        .lt("start_at", endOfMonth)
+        .gt("end_at", startOfMonth)
+        .order("start_at", { ascending: false }),
       supabase
         .from("bookings")
         .select("id, room_id, booking_type, start_at, end_at, guest_name, status")
