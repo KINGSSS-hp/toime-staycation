@@ -47,6 +47,24 @@ export default function BookingsPage() {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [roomFilter, setRoomFilter] = useState("all");
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [updating, setUpdating] = useState<string | null>(null);
+
+  async function updateStatus(bookingId: string, status: "confirmed" | "cancelled") {
+    setUpdating(bookingId);
+    try {
+      const res = await fetch("/api/admin/bookings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ booking_id: bookingId, status }),
+      });
+      if (res.ok) {
+        setBookings((prev) =>
+          prev.map((b) => (b.id === bookingId ? { ...b, status } : b))
+        );
+      }
+    } catch {}
+    setUpdating(null);
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -186,6 +204,27 @@ export default function BookingsPage() {
                         <dd className="font-medium text-text-muted">{new Date(b.created_at).toLocaleString("vi-VN")}</dd>
                       </div>
                     </dl>
+
+                    {b.status !== "cancelled" && (
+                      <div className="flex gap-2 mt-4 pt-3 border-t border-border/20">
+                        {b.status === "pending" && (
+                          <button
+                            onClick={() => updateStatus(b.id, "confirmed")}
+                            disabled={updating === b.id}
+                            className="px-4 py-2 bg-green text-white text-xs font-semibold rounded-xl hover:bg-green-dark transition-colors disabled:opacity-50 cursor-pointer"
+                          >
+                            {updating === b.id ? "Đang xử lý..." : "✓ Xác nhận booking"}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => updateStatus(b.id, "cancelled")}
+                          disabled={updating === b.id}
+                          className="px-4 py-2 bg-red-50 text-red-600 text-xs font-semibold rounded-xl hover:bg-red-100 transition-colors disabled:opacity-50 cursor-pointer"
+                        >
+                          {updating === b.id ? "Đang xử lý..." : "✕ Huỷ booking"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
