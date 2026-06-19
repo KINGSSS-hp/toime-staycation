@@ -26,15 +26,16 @@ interface Props {
 
 export default function RoomPicker({ bookingType, startAt, endAt, hours, onSelect, onBack }: Props) {
   const t = useTranslations("booking_wizard");
-  const [rooms, setRooms] = useState<AvailableRoom[]>([]);
-  const [loading, setLoading] = useState(true);
+  const initialRooms = FALLBACK_ROOMS.map((r) => ({
+    ...r,
+    price: r.prices[bookingType],
+  }));
+  const [rooms, setRooms] = useState<AvailableRoom[]>(initialRooms);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchRooms() {
-      setLoading(true);
-      setError("");
-
       try {
         const params = new URLSearchParams({
           booking_type: bookingType,
@@ -49,18 +50,12 @@ export default function RoomPicker({ bookingType, startAt, endAt, hours, onSelec
 
         setRooms(data.rooms);
       } catch {
-        setError(t("error_loading_rooms"));
-        setRooms(FALLBACK_ROOMS.map((r) => ({
-          ...r,
-          price: r.prices[bookingType],
-        })));
-      } finally {
-        setLoading(false);
+        // Fallback data already shown
       }
     }
 
     fetchRooms();
-  }, [bookingType, startAt, endAt, t]);
+  }, [bookingType, startAt, endAt]);
 
   return (
     <div>
@@ -71,21 +66,7 @@ export default function RoomPicker({ bookingType, startAt, endAt, hours, onSelec
         {t("available_rooms_desc")}
       </p>
 
-      {loading ? (
-        <div className="space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 border border-border/40 animate-pulse">
-              <div className="flex gap-4">
-                <div className="w-24 h-20 rounded-xl bg-cream-dark" />
-                <div className="flex-1 space-y-2">
-                  <div className="h-5 w-32 bg-cream-dark rounded" />
-                  <div className="h-4 w-48 bg-cream-dark/60 rounded" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : rooms.length === 0 ? (
+      {rooms.length === 0 ? (
         <div className="bg-white rounded-2xl p-8 border border-border/40 text-center">
           <p className="text-text-muted">{t("no_rooms")}</p>
         </div>
