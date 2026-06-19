@@ -71,7 +71,8 @@ export function validateBookingInput(input: BookingInput): ValidationResult {
   }
 
   const now = new Date();
-  if (slotResult.slot && slotResult.slot.start_at <= now) {
+  const bufferMs = 60 * 60 * 1000;
+  if (slotResult.slot && slotResult.slot.start_at.getTime() + bufferMs <= now.getTime()) {
     errors.push("DATE_IN_PAST");
   }
 

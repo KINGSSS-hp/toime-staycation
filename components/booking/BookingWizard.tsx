@@ -64,6 +64,7 @@ export default function BookingWizard() {
   const [state, setState] = useState<BookingState>(initialState);
   const [direction, setDirection] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [bookingResult, setBookingResult] = useState<{ id: string } | null>(null);
 
   const goTo = useCallback(
@@ -125,6 +126,7 @@ export default function BookingWizard() {
   const handleConfirm = useCallback(async () => {
     if (submitting) return;
     setSubmitting(true);
+    setSubmitError("");
 
     try {
       const res = await fetch("/api/bookings", {
@@ -144,10 +146,16 @@ export default function BookingWizard() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Booking failed");
+      if (!res.ok) {
+        const msg = data.error === "ROOM_NOT_AVAILABLE"
+          ? "Phòng đã được đặt trong thời gian này. Vui lòng chọn phòng khác."
+          : data.errors?.join(", ") || data.error || "Đặt phòng thất bại";
+        throw new Error(msg);
+      }
 
       setBookingResult({ id: data.id });
-    } catch {
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Đặt phòng thất bại. Vui lòng thử lại.");
       setSubmitting(false);
     }
   }, [state, submitting]);
@@ -295,6 +303,10 @@ export default function BookingWizard() {
                       </div>
                     )}
                   </dl>
+
+                  {submitError && (
+                    <p className="text-sm text-red-600 bg-red-50 px-4 py-2.5 rounded-xl mt-4">{submitError}</p>
+                  )}
 
                   <div className="flex gap-3 mt-8">
                     <button
