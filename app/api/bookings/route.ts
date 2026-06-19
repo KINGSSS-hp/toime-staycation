@@ -106,21 +106,25 @@ export async function POST(request: NextRequest) {
       .eq("booking_type", body.booking_type)
       .single();
 
-    // Send notifications (non-blocking)
-    notifyNewBooking({
-      bookingId: booking.id,
-      guestName: body.guest_name,
-      guestPhone: body.guest_phone,
-      guestEmail: body.guest_email,
-      bookingType: body.booking_type,
-      roomName: room?.name || "Phòng",
-      startAt,
-      endAt,
-      note: body.note,
-      status: booking.status,
-      price: priceData?.price,
-      hours: body.hours,
-    }).catch((err) => console.error("[Booking] Notify error:", err));
+    // Send notifications (must await on serverless)
+    try {
+      await notifyNewBooking({
+        bookingId: booking.id,
+        guestName: body.guest_name,
+        guestPhone: body.guest_phone,
+        guestEmail: body.guest_email,
+        bookingType: body.booking_type,
+        roomName: room?.name || "Phòng",
+        startAt,
+        endAt,
+        note: body.note,
+        status: booking.status,
+        price: priceData?.price,
+        hours: body.hours,
+      });
+    } catch (err) {
+      console.error("[Booking] Notify error:", err);
+    }
 
     return NextResponse.json({
       id: booking.id,
