@@ -46,13 +46,21 @@ export async function POST(request: NextRequest) {
     const supabase = await createServiceRoleClient();
 
     // Check room availability (overlap)
-    const { data: isAvailable } = await supabase.rpc("check_room_available", {
+    const { data: isAvailable, error: rpcError } = await supabase.rpc("check_room_available", {
       p_room_id: body.room_id,
       p_start_at: startAt,
       p_end_at: endAt,
     });
 
-    if (!isAvailable) {
+    if (rpcError) {
+      console.error("[Booking] RPC error:", rpcError);
+      return NextResponse.json(
+        { error: "Failed to check availability" },
+        { status: 500 }
+      );
+    }
+
+    if (isAvailable === false) {
       return NextResponse.json(
         { error: "ROOM_NOT_AVAILABLE" },
         { status: 409 }
