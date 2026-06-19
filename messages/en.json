@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "title": "ToiME Staycation — Your Getaway Destination",
+    "description": "Book your homestay/villa with 4 flexible booking types: Good Morning, Midnight Hot, Overnight, Fast & Furious."
+  },
+  "nav": {
+    "about": "About",
+    "rooms": "Rooms",
+    "reviews": "Reviews",
+    "location": "Location",
+    "booking": "Book Now",
+    "admin": "Admin"
+  },
+  "hero": {
+    "tagline": "Your Getaway Destination",
+    "subtitle": "Enjoy a cozy, peaceful retreat surrounded by nature",
+    "cta_booking": "Book Now",
+    "cta_explore": "Explore Rooms"
+  },
+  "metrics": {
+    "rooms_count": "Rooms",
+    "booking_types": "Flexible booking types",
+    "support": "Support",
+    "satisfaction": "Satisfaction"
+  },
+  "booking_preview": {
+    "title": "Choose your booking type"
+  },
+  "booking_types": {
+    "good_morning": "Good Morning",
+    "good_morning_desc": "Daytime rest, relaxation with nature",
+    "midnight_hot": "Midnight Hot",
+    "midnight_hot_desc": "Romantic night under the moonlight",
+    "overnight": "Chill All Day",
+    "overnight_desc": "A full day of relaxation, fully equipped",
+    "fast_furious": "Fast & Furious",
+    "fast_furious_desc": "Choose 3, 4 or 5 hours — flexible to your needs"
+  },
+  "about": {
+    "eyebrow": "About Us",
+    "title": "Rest your way",
+    "description": "ToiME Staycation offers a cozy retreat immersed in lush nature. Every room is carefully designed with natural wood furnishings, creating a sense of home amidst the countryside.",
+    "description_2": "With 4 flexible booking types — from daytime rest to hourly packages — you choose the experience that suits you best. No account needed, book quickly with just your name and phone number."
+  },
+  "amenities": {
+    "title": "Full amenities",
+    "wifi": "Free WiFi",
+    "parking": "Free parking",
+    "ac": "Air conditioning",
+    "hot_water": "Hot water",
+    "garden": "Garden",
+    "balcony": "Balcony",
+    "fridge": "Mini fridge"
+  },
+  "rooms": {
+    "title": "Our rooms"
+  },
+  "reviews": {
+    "eyebrow": "Reviews",
+    "title": "What our guests say",
+    "review_1": {
+      "text": "Very peaceful and cozy space. The host is friendly, rooms are clean. Will definitely come back!",
+      "name": "Nguyen Thanh",
+      "date": "March 2024"
+    },
+    "review_2": {
+      "text": "Midnight Hot booking is very convenient — great price for a weekend night. Beautiful view, perfectly quiet.",
+      "name": "Tran Huong",
+      "date": "May 2024"
+    },
+    "review_3": {
+      "text": "Villa Garden is spacious, the small kitchen is great for families. Private garden is wonderful for kids.",
+      "name": "Le Minh",
+      "date": "June 2024"
+    }
+  },
+  "location": {
+    "eyebrow": "Location",
+    "title": "How to find us",
+    "map_placeholder": "Map will be displayed here",
+    "address_label": "Address",
+    "address": "Address to be updated",
+    "distances_label": "Distances",
+    "distance_1": "5 min walk to center",
+    "distance_2": "15 min drive to attractions",
+    "distance_3": "30 min from airport / train station",
+    "contact_label": "Contact",
+    "phone": "Phone: +84 123 456 789",
+    "email": "Email: hello@toime.vn"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "faq_1": {
+      "q": "Do I need an account to book?",
+      "a": "No! Just enter your name, phone number, and email (optional) to book instantly."
+    },
+    "faq_2": {
+      "q": "Is Good Morning available on Sundays?",
+      "a": "No, the Good Morning booking type (09:00–18:00) is not available on Sundays. Other booking types work normally."
+    },
+    "faq_3": {
+      "q": "How do I pay?",
+      "a": "We currently accept bank transfer payments. Account details will be shown after booking."
+    },
+    "faq_4": {
+      "q": "How do I cancel?",
+      "a": "Contact us directly via Zalo or phone to cancel. We'll confirm the cancellation via message."
+    },
+    "faq_5": {
+      "q": "How does Fast & Furious work?",
+      "a": "Choose a 3-hour (399,000đ), 4-hour (499,000đ), or 5-hour (549,000đ) package, then pick your preferred date and start time."
+    }
+  },
+  "booking_wizard": {
+    "page_title": "Book a Room",
+    "page_subtitle": "Choose your booking type, date, room and complete in a few steps",
+    "step_type": "Type",
+    "step_date": "Date",
+    "step_room": "Room",
+    "step_guest": "Guest",
+    "step_confirm": "Confirm",
+    "select_type": "Choose booking type",
+    "select_type_desc": "Each type has different check-in and check-out hours",
+    "select_date": "Choose date",
+    "type_good_morning": "Good Morning: 09:00 – 18:00 same day (not available on Sundays)",
+    "type_midnight_hot": "Midnight Hot: 21:00 – 12:00 next day",
+    "type_overnight": "Chill All Day: Check-in 14:00, check-out 12:00 next day",
+    "type_fast_furious": "Fast & Furious: Choose 3/4/5 hours, pick your start time",
+    "select_package": "Choose time package",
+    "start_time": "Start time",
+    "date_label": "Check-in date",
+    "nights_label": "Number of nights",
+    "nights_unit": "nights",
+    "time_preview": "Estimated time",
+    "check_rooms": "View available rooms",
+    "select_room": "Choose a room",
+    "available_rooms_desc": "Rooms available for your selected time",
+    "no_rooms": "No rooms available for this time. Please select a different date.",
+    "guest_info": "Guest information",
+    "guest_info_desc": "No account needed — just your name and phone number",
+    "name_label": "Full name",
+    "name_placeholder": "John Doe",
+    "phone_label": "Phone number",
+    "email_label": "Email (optional)",
+    "note_label": "Notes",
+    "note_placeholder": "Special requests, expected arrival time...",
+    "review_title": "Confirm your booking",
+    "phone": "Phone",
+    "total": "Total",
+    "back": "Back",
+    "continue": "Continue",
+    "confirm": "Confirm booking",
+    "submitting": "Processing...",
+    "success_title": "Booking confirmed!",
+    "success_desc": "We will contact you to confirm via Zalo or phone",
+    "summary": "Booking details",
+    "payment_info": "Bank transfer information",
+    "bank": "Bank",
+    "account": "Account number",
+    "holder": "Account holder",
+    "transfer_content": "Transfer note",
+    "book_another": "Book another room",
+    "error_select_date": "Please select a date",
+    "error_sunday": "Good Morning is not available on Sundays",
+    "error_invalid_duration": "Please choose a 3, 4 or 5 hour package",
+    "error_invalid_start_hour": "Start time must be between 8:00 and 21:00",
+    "error_name": "Please enter your name (at least 2 characters)",
+    "error_phone": "Invalid phone number (e.g. 0912345678)",
+    "error_email": "Invalid email address",
+    "error_loading_rooms": "Using sample data (Supabase not connected)"
+  },
+  "common": {
+    "book_now": "Book This Room",
+    "check_availability": "Check Availability",
+    "guests": "Guests",
+    "night": "night",
+    "from": "From",
+    "contact": "Contact",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "amenities": "Amenities",
+    "reviews": "Reviews",
+    "faq": "FAQ",
+    "view_all": "View All",
+    "close": "Close",
+    "sunday_closed": "Not available on Sundays"
+  },
+  "admin": {
+    "calendar": "Booking Calendar",
+    "calendar_desc": "Overview of all room bookings by month",
+    "revenue": "Revenue",
+    "revenue_desc": "Revenue reports by day, month and booking type",
+    "back_to_site": "Back to site",
+    "room": "Room",
+    "login": "Log in",
+    "login_subtitle": "Log in to manage your homestay",
+    "login_error": "Invalid email or password",
+    "logging_in": "Logging in...",
+    "password": "Password",
+    "total_revenue": "Total revenue",
+    "confirmed_bookings": "Confirmed",
+    "pending_bookings": "Pending",
+    "avg_per_booking": "Avg / booking",
+    "revenue_by_type": "Revenue by booking type",
+    "daily_revenue": "Daily revenue",
+    "daily": "Daily",
+    "monthly": "Monthly",
+    "booking_list": "Booking list",
+    "date_col": "Date",
+    "guest_col": "Guest",
+    "room_col": "Room",
+    "type_col": "Type",
+    "amount_col": "Amount",
+    "status_col": "Status",
+    "confirmed": "Confirmed",
+    "pending": "Pending"
+  },
+  "footer": {
+    "copyright": "© 2024 ToiME Staycation. All rights reserved.",
+    "follow_us": "Follow Us",
+    "navigation": "Navigation"
+  }
+}

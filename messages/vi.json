@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "title": "ToiME Staycation — Nơi Nghỉ Dưỡng Của Bạn",
+    "description": "Đặt phòng homestay/villa với 4 loại đặt linh hoạt: Good Morning, Midnight Hot, Overnight, Fast & Furious."
+  },
+  "nav": {
+    "about": "Giới thiệu",
+    "rooms": "Phòng nghỉ",
+    "reviews": "Đánh giá",
+    "location": "Vị trí",
+    "booking": "Đặt phòng",
+    "admin": "Quản trị"
+  },
+  "hero": {
+    "tagline": "Nơi Nghỉ Dưỡng Của Bạn",
+    "subtitle": "Tận hưởng không gian ấm cúng, yên bình giữa đô thị phồn hoa",
+    "cta_booking": "Đặt phòng ngay",
+    "cta_explore": "Khám phá phòng"
+  },
+  "metrics": {
+    "rooms_count": "Phòng nghỉ",
+    "booking_types": "Loại đặt linh hoạt",
+    "support": "Hỗ trợ",
+    "satisfaction": "Hài lòng"
+  },
+  "booking_preview": {
+    "title": "Chọn loại đặt phòng"
+  },
+  "booking_types": {
+    "good_morning": "Good Morning",
+    "good_morning_desc": "Nghỉ ngơi ban ngày, thư giãn cùng thiên nhiên",
+    "midnight_hot": "Midnight Hot",
+    "midnight_hot_desc": "Đêm lãng mạn, yên tĩnh dưới ánh trăng",
+    "overnight": "Chill All Day",
+    "overnight_desc": "Trọn ngày thư giãn, đầy đủ tiện nghi",
+    "fast_furious": "Fast & Furious",
+    "fast_furious_desc": "Chọn 3, 4 hoặc 5 tiếng — linh hoạt theo nhu cầu"
+  },
+  "about": {
+    "eyebrow": "Về chúng tôi",
+    "title": "Nghỉ dưỡng theo cách của bạn",
+    "description": "ToiME Staycation mang đến không gian nghỉ dưỡng ấm cúng, hòa mình vào thiên nhiên xanh mát. Mỗi căn phòng được thiết kế tỉ mỉ với nội thất gỗ tự nhiên, tạo cảm giác như đang ở nhà giữa lòng thiên nhiên.",
+    "description_2": "Với 4 loại đặt phòng linh hoạt — từ nghỉ ngơi ban ngày đến gói theo giờ — bạn tự do chọn trải nghiệm phù hợp nhất. Không cần tài khoản, đặt phòng nhanh chóng chỉ với tên và số điện thoại."
+  },
+  "amenities": {
+    "title": "Tiện nghi đầy đủ",
+    "wifi": "WiFi miễn phí",
+    "parking": "Đỗ xe miễn phí",
+    "ac": "Điều hoà",
+    "hot_water": "Nước nóng",
+    "garden": "Sân vườn",
+    "balcony": "Ban công",
+    "fridge": "Tủ lạnh mini"
+  },
+  "rooms": {
+    "title": "Phòng nghỉ của chúng tôi"
+  },
+  "reviews": {
+    "eyebrow": "Đánh giá",
+    "title": "Khách hàng nói gì",
+    "review_1": {
+      "text": "Không gian rất yên tĩnh và ấm cúng. Chủ nhà thân thiện, phòng sạch sẽ. Chắc chắn sẽ quay lại!",
+      "name": "Nguyễn Thanh",
+      "date": "Tháng 3, 2024"
+    },
+    "review_2": {
+      "text": "Đặt phòng Midnight Hot rất tiện — giá hợp lý cho đêm cuối tuần. View đẹp, yên tĩnh tuyệt vời.",
+      "name": "Trần Hương",
+      "date": "Tháng 5, 2024"
+    },
+    "review_3": {
+      "text": "Villa Garden rộng rãi, có bếp nhỏ rất tiện cho gia đình. Sân vườn riêng tuyệt vời cho trẻ con chơi.",
+      "name": "Lê Minh",
+      "date": "Tháng 6, 2024"
+    }
+  },
+  "location": {
+    "eyebrow": "Vị trí",
+    "title": "Cách tìm đến chúng tôi",
+    "map_placeholder": "Bản đồ sẽ hiển thị tại đây",
+    "address_label": "Địa chỉ",
+    "address": "Đang cập nhật địa chỉ chính xác",
+    "distances_label": "Khoảng cách",
+    "distance_1": "5 phút đi bộ đến trung tâm",
+    "distance_2": "15 phút lái xe đến điểm du lịch",
+    "distance_3": "30 phút từ sân bay / ga tàu",
+    "contact_label": "Liên hệ",
+    "phone": "Điện thoại: +84 123 456 789",
+    "email": "Email: hello@toime.vn"
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp",
+    "faq_1": {
+      "q": "Có cần tạo tài khoản để đặt phòng không?",
+      "a": "Không cần! Bạn chỉ cần điền tên, số điện thoại và email (tuỳ chọn) là có thể đặt phòng ngay."
+    },
+    "faq_2": {
+      "q": "Good Morning có nhận Chủ Nhật không?",
+      "a": "Không, loại đặt Good Morning (09:00–18:00) không nhận vào ngày Chủ Nhật. Các loại đặt khác vẫn hoạt động bình thường."
+    },
+    "faq_3": {
+      "q": "Thanh toán bằng cách nào?",
+      "a": "Hiện tại chúng tôi nhận thanh toán qua chuyển khoản ngân hàng. Thông tin tài khoản sẽ được hiển thị sau khi đặt phòng."
+    },
+    "faq_4": {
+      "q": "Huỷ phòng như thế nào?",
+      "a": "Bạn có thể liên hệ trực tiếp qua Zalo hoặc điện thoại để huỷ phòng. Chúng tôi sẽ xác nhận huỷ qua tin nhắn."
+    },
+    "faq_5": {
+      "q": "Fast & Furious hoạt động như thế nào?",
+      "a": "Bạn chọn gói 3 tiếng (399.000đ), 4 tiếng (499.000đ) hoặc 5 tiếng (549.000đ), sau đó chọn ngày và giờ bắt đầu phù hợp."
+    }
+  },
+  "booking_wizard": {
+    "page_title": "Đặt phòng",
+    "page_subtitle": "Chọn loại đặt, ngày, phòng và hoàn tất chỉ trong vài bước",
+    "step_type": "Loại đặt",
+    "step_date": "Ngày",
+    "step_room": "Phòng",
+    "step_guest": "Khách",
+    "step_confirm": "Xác nhận",
+    "select_type": "Chọn loại đặt phòng",
+    "select_type_desc": "Mỗi loại có khung giờ check-in và check-out khác nhau",
+    "select_date": "Chọn ngày",
+    "type_good_morning": "Good Morning: 09:00 – 18:00 cùng ngày (không nhận Chủ Nhật)",
+    "type_midnight_hot": "Midnight Hot: 21:00 – 12:00 ngày hôm sau",
+    "type_overnight": "Chill All Day: Check-in 14:00, check-out 12:00 hôm sau",
+    "type_fast_furious": "Fast & Furious: Chọn 3/4/5 tiếng, tự chọn giờ bắt đầu",
+    "select_package": "Chọn gói thời gian",
+    "start_time": "Giờ bắt đầu",
+    "date_label": "Ngày check-in",
+    "nights_label": "Số đêm",
+    "nights_unit": "đêm",
+    "time_preview": "Thời gian dự kiến",
+    "check_rooms": "Xem phòng trống",
+    "select_room": "Chọn phòng",
+    "available_rooms_desc": "Các phòng còn trống cho thời gian bạn chọn",
+    "no_rooms": "Không có phòng trống cho thời gian này. Vui lòng chọn ngày khác.",
+    "guest_info": "Thông tin khách",
+    "guest_info_desc": "Không cần tạo tài khoản — chỉ cần tên và số điện thoại",
+    "name_label": "Họ tên",
+    "name_placeholder": "Nguyễn Văn A",
+    "phone_label": "Số điện thoại",
+    "email_label": "Email (tuỳ chọn)",
+    "note_label": "Ghi chú",
+    "note_placeholder": "Yêu cầu đặc biệt, giờ đến dự kiến...",
+    "review_title": "Xác nhận đặt phòng",
+    "phone": "Điện thoại",
+    "total": "Tổng tiền",
+    "back": "Quay lại",
+    "continue": "Tiếp tục",
+    "confirm": "Xác nhận đặt phòng",
+    "submitting": "Đang xử lý...",
+    "success_title": "Đặt phòng thành công!",
+    "success_desc": "Chúng tôi sẽ liên hệ xác nhận qua Zalo hoặc điện thoại",
+    "summary": "Chi tiết đặt phòng",
+    "payment_info": "Thông tin chuyển khoản",
+    "bank": "Ngân hàng",
+    "account": "Số tài khoản",
+    "holder": "Chủ tài khoản",
+    "transfer_content": "Nội dung CK",
+    "book_another": "Đặt phòng khác",
+    "error_select_date": "Vui lòng chọn ngày",
+    "error_sunday": "Good Morning không nhận vào Chủ Nhật",
+    "error_invalid_duration": "Vui lòng chọn gói 3, 4 hoặc 5 tiếng",
+    "error_invalid_start_hour": "Giờ bắt đầu phải từ 8:00 đến 21:00",
+    "error_name": "Vui lòng nhập họ tên (ít nhất 2 ký tự)",
+    "error_phone": "Số điện thoại không hợp lệ (VD: 0912345678)",
+    "error_email": "Email không hợp lệ",
+    "error_loading_rooms": "Đang dùng dữ liệu mẫu (chưa kết nối Supabase)"
+  },
+  "common": {
+    "book_now": "Đặt phòng này",
+    "check_availability": "Kiểm tra phòng trống",
+    "guests": "Khách",
+    "night": "đêm",
+    "from": "Từ",
+    "contact": "Liên hệ",
+    "phone": "Điện thoại",
+    "email": "Email",
+    "address": "Địa chỉ",
+    "amenities": "Tiện nghi",
+    "reviews": "Đánh giá",
+    "faq": "Câu hỏi thường gặp",
+    "view_all": "Xem tất cả",
+    "close": "Đóng",
+    "sunday_closed": "Không nhận Chủ Nhật"
+  },
+  "admin": {
+    "calendar": "Lịch đặt phòng",
+    "calendar_desc": "Tổng quan booking tất cả phòng theo tháng",
+    "revenue": "Doanh thu",
+    "revenue_desc": "Báo cáo doanh thu theo ngày, tháng và loại đặt",
+    "back_to_site": "Về trang chủ",
+    "room": "Phòng",
+    "login": "Đăng nhập",
+    "login_subtitle": "Đăng nhập để quản lý homestay",
+    "login_error": "Email hoặc mật khẩu không đúng",
+    "logging_in": "Đang đăng nhập...",
+    "password": "Mật khẩu",
+    "total_revenue": "Tổng doanh thu",
+    "confirmed_bookings": "Đã xác nhận",
+    "pending_bookings": "Chờ xử lý",
+    "avg_per_booking": "TB / booking",
+    "revenue_by_type": "Doanh thu theo loại đặt",
+    "daily_revenue": "Doanh thu theo ngày",
+    "daily": "Ngày",
+    "monthly": "Tháng",
+    "booking_list": "Danh sách booking",
+    "date_col": "Ngày",
+    "guest_col": "Khách",
+    "room_col": "Phòng",
+    "type_col": "Loại",
+    "amount_col": "Số tiền",
+    "status_col": "Trạng thái",
+    "confirmed": "Đã xác nhận",
+    "pending": "Chờ"
+  },
+  "footer": {
+    "copyright": "© 2024 ToiME Staycation. Tất cả quyền được bảo lưu.",
+    "follow_us": "Theo dõi chúng tôi",
+    "navigation": "Điều hướng"
+  }
+}
