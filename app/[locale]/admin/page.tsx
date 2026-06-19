@@ -1,25 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-
-interface BookingEvent {
-  id: string;
-  roomName: string;
-  roomId: string;
-  bookingType: string;
-  guestName: string;
-  startAt: Date;
-  endAt: Date;
-  status: string;
-}
-
-const TYPE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  good_morning: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
-  midnight_hot: { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200" },
-  overnight: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
-  fast_furious: { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
-};
+import { Link } from "@/i18n/navigation";
 
 const TYPE_LABELS: Record<string, string> = {
   good_morning: "Good Morning",
@@ -28,219 +11,210 @@ const TYPE_LABELS: Record<string, string> = {
   fast_furious: "Fast & Furious",
 };
 
-const SAMPLE_ROOMS = [
-  "Ari",
-  "Crimson",
-  "Gatou",
-  "Inme",
-  "Rome",
-  "Tame",
-  "Tome",
-  "Woody",
-];
+const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
+  good_morning: { bg: "bg-amber-100", text: "text-amber-700" },
+  midnight_hot: { bg: "bg-indigo-100", text: "text-indigo-700" },
+  overnight: { bg: "bg-emerald-100", text: "text-emerald-700" },
+  fast_furious: { bg: "bg-rose-100", text: "text-rose-700" },
+};
 
-function seededRandom(seed: number): () => number {
-  let s = seed;
-  return () => {
-    s = (s * 1103515245 + 12345) & 0x7fffffff;
-    return s / 0x7fffffff;
+function formatVND(amount: number): string {
+  return amount.toLocaleString("vi-VN") + "đ";
+}
+
+interface AdminData {
+  summary: {
+    totalBookings: number;
+    confirmedBookings: number;
+    pendingBookings: number;
+    cancelledBookings: number;
+    totalRevenue: number;
+    todayBookings: number;
+    activeRooms: number;
+    totalRooms: number;
   };
+  bookings: Array<{
+    id: string;
+    room_name: string;
+    booking_type: string;
+    start_at: string;
+    end_at: string;
+    guest_name: string;
+    guest_phone: string;
+    status: string;
+    price: number;
+    created_at: string;
+  }>;
+  revenueByType: Record<string, number>;
 }
 
-function generateSampleBookings(month: Date): BookingEvent[] {
-  const bookings: BookingEvent[] = [];
-  const types = ["good_morning", "midnight_hot", "overnight", "fast_furious"];
-  const names = ["Nguyễn An", "Trần Bình", "Lê Chi", "Phạm Duy", "Hoàng Em", "Vũ Phong", "Đỗ Giang", "Bùi Hoa"];
-  const year = month.getFullYear();
-  const m = month.getMonth();
-  const daysInMonth = new Date(year, m + 1, 0).getDate();
-  const rand = seededRandom(year * 100 + m);
-
-  for (let i = 0; i < 18; i++) {
-    const day = Math.floor(rand() * daysInMonth) + 1;
-    const roomIdx = Math.floor(rand() * SAMPLE_ROOMS.length);
-    const typeIdx = Math.floor(rand() * types.length);
-    const nameIdx = Math.floor(rand() * names.length);
-    const type = types[typeIdx];
-
-    let startAt: Date, endAt: Date;
-    if (type === "good_morning") {
-      startAt = new Date(year, m, day, 9);
-      endAt = new Date(year, m, day, 18);
-    } else if (type === "midnight_hot") {
-      startAt = new Date(year, m, day, 21);
-      endAt = new Date(year, m, day + 1, 12);
-    } else if (type === "overnight") {
-      startAt = new Date(year, m, day, 14);
-      endAt = new Date(year, m, day + 1, 12);
-    } else {
-      const nights = 2 + Math.floor(rand() * 3);
-      startAt = new Date(year, m, day, 14);
-      endAt = new Date(year, m, day + nights, 12);
-    }
-
-    bookings.push({
-      id: `demo-${i}`,
-      roomName: SAMPLE_ROOMS[roomIdx],
-      roomId: `room-${roomIdx}`,
-      bookingType: type,
-      guestName: names[nameIdx],
-      startAt,
-      endAt,
-      status: rand() > 0.2 ? "confirmed" : "pending",
-    });
-  }
-
-  return bookings;
-}
-
-function getDaysInMonth(date: Date): Date[] {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const days: Date[] = [];
-  const count = new Date(year, month + 1, 0).getDate();
-  for (let d = 1; d <= count; d++) {
-    days.push(new Date(year, month, d));
-  }
-  return days;
-}
-
-export default function AdminCalendarPage() {
+export default function AdminDashboard() {
   const t = useTranslations("admin");
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [data, setData] = useState<AdminData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const days = useMemo(() => getDaysInMonth(currentMonth), [currentMonth]);
-  const bookings = useMemo(() => generateSampleBookings(currentMonth), [currentMonth]);
+  useEffect(() => {
+    const now = new Date();
+    fetch(`/api/admin/stats?month=${now.getMonth() + 1}&year=${now.getFullYear()}`)
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
-  const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
-  };
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="bg-white rounded-2xl p-6 border border-border/40 animate-pulse h-24" />
+        ))}
+      </div>
+    );
+  }
 
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
-  };
+  if (!data) {
+    return <p className="text-text-muted text-center py-12">Không thể tải dữ liệu</p>;
+  }
 
-  const getBookingsForDay = (day: Date, room: string) => {
-    return bookings.filter((b) => {
-      if (b.roomName !== room) return false;
-      const dayStart = new Date(day);
-      dayStart.setHours(0, 0, 0, 0);
-      const dayEnd = new Date(day);
-      dayEnd.setHours(23, 59, 59, 999);
-      return b.startAt <= dayEnd && b.endAt >= dayStart;
-    });
-  };
-
-  const monthLabel = currentMonth.toLocaleDateString("vi-VN", {
-    month: "long",
-    year: "numeric",
-  });
+  const { summary, bookings, revenueByType } = data;
+  const recentBookings = bookings.slice(0, 5);
 
   return (
     <div>
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-brown-dark">{t("calendar")}</h1>
-          <p className="text-sm text-text-muted mt-1">{t("calendar_desc")}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={prevMonth}
-            className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-text-light hover:bg-cream transition-colors cursor-pointer"
-          >
-            ←
-          </button>
-          <span className="text-sm font-semibold text-brown-dark min-w-[140px] text-center capitalize">
-            {monthLabel}
-          </span>
-          <button
-            onClick={nextMonth}
-            className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-text-light hover:bg-cream transition-colors cursor-pointer"
-          >
-            →
-          </button>
-        </div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-brown-dark">{t("dashboard")}</h1>
+        <p className="text-sm text-text-muted mt-1">{t("dashboard_desc")}</p>
       </div>
 
-      {/* Legend */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        {Object.entries(TYPE_LABELS).map(([key, label]) => {
-          const colors = TYPE_COLORS[key];
-          return (
-            <div key={key} className="flex items-center gap-1.5">
-              <div className={`w-3 h-3 rounded-sm ${colors.bg} border ${colors.border}`} />
-              <span className="text-xs text-text-muted">{label}</span>
+      {/* Summary Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white rounded-2xl p-5 border border-border/40 shadow-sm">
+          <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Booking hôm nay</p>
+          <p className="text-3xl font-bold text-brown">{summary.todayBookings}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-5 border border-border/40 shadow-sm">
+          <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Phòng đang sử dụng</p>
+          <p className="text-3xl font-bold text-green">{summary.activeRooms}<span className="text-base font-normal text-text-muted">/{summary.totalRooms}</span></p>
+        </div>
+        <div className="bg-white rounded-2xl p-5 border border-border/40 shadow-sm">
+          <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Doanh thu tháng</p>
+          <p className="text-2xl font-bold text-brown-dark">{formatVND(summary.totalRevenue)}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-5 border border-border/40 shadow-sm">
+          <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Tổng booking tháng</p>
+          <div className="flex items-baseline gap-2">
+            <p className="text-3xl font-bold text-brown-dark">{summary.totalBookings}</p>
+            <div className="flex gap-1 text-[11px]">
+              <span className="px-1.5 py-0.5 rounded bg-green/10 text-green">{summary.confirmedBookings} ✓</span>
+              <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-600">{summary.pendingBookings} ⏳</span>
             </div>
-          );
-        })}
+          </div>
+        </div>
       </div>
 
-      {/* Calendar grid */}
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        {/* Revenue by Type */}
+        <div className="bg-white rounded-2xl p-6 border border-border/40 shadow-sm lg:col-span-2">
+          <h3 className="text-sm font-semibold text-brown-dark mb-4 uppercase tracking-wider">Doanh thu theo loại đặt</h3>
+          <div className="space-y-3">
+            {Object.entries(TYPE_LABELS).map(([key, label]) => {
+              const amount = revenueByType[key] || 0;
+              const pct = summary.totalRevenue > 0 ? (amount / summary.totalRevenue) * 100 : 0;
+              const colors = TYPE_COLORS[key];
+              return (
+                <div key={key} className="flex items-center gap-3">
+                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${colors.bg} ${colors.text} w-28 text-center flex-shrink-0`}>{label}</span>
+                  <div className="flex-1 h-5 bg-cream rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full ${colors.bg} transition-all duration-700`} style={{ width: `${Math.max(pct, 2)}%` }} />
+                  </div>
+                  <span className="text-xs font-semibold text-brown-dark w-28 text-right flex-shrink-0">{formatVND(amount)}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="bg-white rounded-2xl p-6 border border-border/40 shadow-sm">
+          <h3 className="text-sm font-semibold text-brown-dark mb-4 uppercase tracking-wider">Trạng thái</h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-text-muted">Đã xác nhận</span>
+              <span className="text-sm font-bold text-green">{summary.confirmedBookings}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-text-muted">Đang chờ</span>
+              <span className="text-sm font-bold text-amber-600">{summary.pendingBookings}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-text-muted">Đã huỷ</span>
+              <span className="text-sm font-bold text-red-500">{summary.cancelledBookings}</span>
+            </div>
+            <hr className="border-border/30" />
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-text-muted font-medium">Trung bình/booking</span>
+              <span className="text-sm font-bold text-brown-dark">
+                {summary.confirmedBookings > 0 ? formatVND(Math.round(summary.totalRevenue / summary.confirmedBookings)) : "—"}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Bookings */}
       <div className="bg-white rounded-2xl border border-border/40 shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="border-b border-border/30">
-                <th className="sticky left-0 z-10 bg-cream px-3 py-3 text-left font-semibold text-text-muted w-36 min-w-36">
-                  {t("room")}
-                </th>
-                {days.map((day) => {
-                  const isToday = day.toDateString() === new Date().toDateString();
-                  const isSunday = day.getDay() === 0;
+        <div className="px-6 py-4 border-b border-border/30 flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-brown-dark uppercase tracking-wider">Booking gần đây</h3>
+          <Link href="/admin/bookings" className="text-xs text-brown hover:text-brown-dark font-medium transition-colors">Xem tất cả →</Link>
+        </div>
+        {recentBookings.length === 0 ? (
+          <p className="text-sm text-text-muted text-center py-8">Chưa có booking nào trong tháng</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border/20 text-text-muted text-xs uppercase tracking-wider">
+                  <th className="text-left px-6 py-3 font-medium">Khách</th>
+                  <th className="text-left px-4 py-3 font-medium">Phòng</th>
+                  <th className="text-left px-4 py-3 font-medium">Loại đặt</th>
+                  <th className="text-left px-4 py-3 font-medium">Check-in</th>
+                  <th className="text-right px-4 py-3 font-medium">Giá</th>
+                  <th className="text-center px-6 py-3 font-medium">Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentBookings.map((b) => {
+                  const colors = TYPE_COLORS[b.booking_type] || { bg: "bg-gray-100", text: "text-gray-700" };
                   return (
-                    <th
-                      key={day.toISOString()}
-                      className={`px-1 py-3 text-center font-medium min-w-[36px] ${
-                        isToday
-                          ? "bg-brown/10 text-brown"
-                          : isSunday
-                            ? "text-red-400"
-                            : "text-text-muted"
-                      }`}
-                    >
-                      <div>{day.getDate()}</div>
-                      <div className="text-[10px] font-normal">
-                        {day.toLocaleDateString("vi-VN", { weekday: "narrow" })}
-                      </div>
-                    </th>
+                    <tr key={b.id} className="border-b border-border/10 last:border-b-0 hover:bg-cream-light/50">
+                      <td className="px-6 py-3">
+                        <p className="font-medium text-brown-dark">{b.guest_name}</p>
+                        <p className="text-[11px] text-text-muted">{b.guest_phone}</p>
+                      </td>
+                      <td className="px-4 py-3 text-text-light">{b.room_name}</td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-medium ${colors.bg} ${colors.text}`}>
+                          {TYPE_LABELS[b.booking_type] || b.booking_type}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-text-muted text-xs">
+                        {new Date(b.start_at).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
+                      </td>
+                      <td className="px-4 py-3 text-right font-semibold text-brown-dark">{formatVND(b.price)}</td>
+                      <td className="px-6 py-3 text-center">
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                          b.status === "confirmed" ? "bg-green/10 text-green" : b.status === "cancelled" ? "bg-red-100 text-red-600" : "bg-amber-100 text-amber-600"
+                        }`}>
+                          {b.status === "confirmed" ? "Xác nhận" : b.status === "cancelled" ? "Đã huỷ" : "Chờ"}
+                        </span>
+                      </td>
+                    </tr>
                   );
                 })}
-              </tr>
-            </thead>
-            <tbody>
-              {SAMPLE_ROOMS.map((room) => (
-                <tr key={room} className="border-b border-border/20 last:border-b-0">
-                  <td className="sticky left-0 z-10 bg-white px-3 py-2 font-medium text-brown-dark border-r border-border/20">
-                    {room}
-                  </td>
-                  {days.map((day) => {
-                    const dayBookings = getBookingsForDay(day, room);
-                    return (
-                      <td
-                        key={day.toISOString()}
-                        className="px-0.5 py-1 align-top"
-                      >
-                        {dayBookings.map((b) => {
-                          const colors = TYPE_COLORS[b.bookingType];
-                          return (
-                            <div
-                              key={b.id}
-                              className={`${colors.bg} ${colors.text} border ${colors.border} rounded px-1 py-0.5 mb-0.5 truncate cursor-default`}
-                              title={`${b.guestName} · ${TYPE_LABELS[b.bookingType]} · ${b.status}`}
-                            >
-                              {b.guestName.split(" ").pop()}
-                            </div>
-                          );
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
