@@ -106,6 +106,23 @@ function calcOvernight(date: Date): BookingRuleResult {
 }
 
 /**
+ * Multi-night: nhiều đêm liên tiếp, check-in 14:00 / check-out 12:00.
+ */
+function calcMultiNight(date: Date, nights: number): BookingRuleResult {
+  if (!nights || nights < 2 || nights > 30) {
+    return { valid: false, error: "INVALID_NIGHTS" };
+  }
+
+  return {
+    valid: true,
+    slot: {
+      start_at: setTime(date, 14),
+      end_at: setTime(addDays(date, nights), 12),
+    },
+  };
+}
+
+/**
  * Fast & Furious: chọn 3/4/5 tiếng, chọn giờ bắt đầu.
  * @param date ngày đặt
  * @param hours số tiếng (3, 4, hoặc 5)
@@ -148,6 +165,8 @@ export function calculateBookingSlot(
       return calcMidnightHot(date);
     case "overnight":
       return calcOvernight(date);
+    case "multi_night":
+      return calcMultiNight(date, hoursOrNights ?? 0);
     case "fast_furious":
       return calcFastFurious(date, hoursOrNights ?? 0, startHour ?? 0);
     default: {
@@ -168,5 +187,6 @@ export const BOOKING_TYPE_LABELS: Record<BookingType, { vi: string; en: string }
   good_morning: { vi: "Good Morning", en: "Good Morning" },
   midnight_hot: { vi: "Midnight Hot", en: "Midnight Hot" },
   overnight: { vi: "Chill All Day", en: "Chill All Day" },
+  multi_night: { vi: "Multi-night", en: "Multi-night" },
   fast_furious: { vi: "Fast & Furious", en: "Fast & Furious" },
 };

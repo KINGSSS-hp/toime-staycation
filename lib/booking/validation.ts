@@ -24,6 +24,7 @@ const VALID_BOOKING_TYPES: BookingType[] = [
   "good_morning",
   "midnight_hot",
   "overnight",
+  "multi_night",
   "fast_furious",
 ];
 

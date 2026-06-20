@@ -7,6 +7,7 @@ const TYPE_LABELS: Record<string, string> = {
   good_morning: "Good Morning",
   midnight_hot: "Midnight Hot",
   overnight: "Chill All Day",
+  multi_night: "Multi-night",
   fast_furious: "Fast & Furious",
 };
 
@@ -14,6 +15,7 @@ const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
   good_morning: { bg: "bg-amber-100", text: "text-amber-700" },
   midnight_hot: { bg: "bg-indigo-100", text: "text-indigo-700" },
   overnight: { bg: "bg-emerald-100", text: "text-emerald-700" },
+  multi_night: { bg: "bg-purple-100", text: "text-purple-700" },
   fast_furious: { bg: "bg-rose-100", text: "text-rose-700" },
 };
 

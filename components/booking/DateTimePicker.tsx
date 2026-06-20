@@ -19,10 +19,12 @@ export default function DateTimePicker({ bookingType, onSelect, onBack }: Props)
   const t = useTranslations("booking_wizard");
   const [dateStr, setDateStr] = useState("");
   const [ffHours, setFfHours] = useState<3 | 4 | 5>(3);
+  const [nights, setNights] = useState(2);
   const [startHour, setStartHour] = useState(10);
   const [error, setError] = useState("");
 
   const isFastFurious = bookingType === "fast_furious";
+  const isMultiNight = bookingType === "multi_night";
 
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -38,25 +40,28 @@ export default function DateTimePicker({ bookingType, onSelect, onBack }: Props)
 
     const result = isFastFurious
       ? calculateBookingSlot(bookingType, date, ffHours, startHour)
-      : calculateBookingSlot(bookingType, date);
+      : isMultiNight
+        ? calculateBookingSlot(bookingType, date, nights)
+        : calculateBookingSlot(bookingType, date);
 
     if (!result.valid) {
       if (result.error === "SUNDAY_NOT_ALLOWED") setError(t("error_sunday"));
       else if (result.error === "INVALID_DURATION") setError(t("error_invalid_duration"));
       else if (result.error === "INVALID_START_HOUR") setError(t("error_invalid_start_hour"));
+      else if (result.error === "INVALID_NIGHTS") setError(t("error_invalid_nights"));
       else setError(result.error || "");
       return;
     }
 
     setError("");
-    onSelect(date, isFastFurious ? ffHours : 0, isFastFurious ? startHour : undefined);
+    onSelect(date, isFastFurious ? ffHours : isMultiNight ? nights : 0, isFastFurious ? startHour : undefined);
   };
 
   const previewSlot = dateStr
     ? calculateBookingSlot(
         bookingType,
         new Date(dateStr + "T00:00:00"),
-        isFastFurious ? ffHours : undefined,
+        isFastFurious ? ffHours : isMultiNight ? nights : undefined,
         isFastFurious ? startHour : undefined
       )
     : null;
@@ -92,6 +97,27 @@ export default function DateTimePicker({ bookingType, onSelect, onBack }: Props)
                   <p className="text-xs text-text-muted mt-1">{opt.label}</p>
                 </button>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Multi-night: chọn số đêm */}
+        {isMultiNight && (
+          <div>
+            <label className="block text-sm font-medium text-text-light mb-2">
+              {t("nights_label")}
+            </label>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => { setNights(Math.max(2, nights - 1)); setError(""); }}
+                className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-brown-dark hover:bg-cream transition-colors cursor-pointer text-lg font-bold"
+              >−</button>
+              <span className="text-2xl font-bold text-brown-dark w-12 text-center">{nights}</span>
+              <button
+                onClick={() => { setNights(Math.min(30, nights + 1)); setError(""); }}
+                className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-brown-dark hover:bg-cream transition-colors cursor-pointer text-lg font-bold"
+              >+</button>
+              <span className="text-sm text-text-muted">{t("nights_unit")}</span>
             </div>
           </div>
         )}

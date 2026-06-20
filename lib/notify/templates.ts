@@ -5,6 +5,7 @@ const TYPE_LABELS: Record<BookingType, string> = {
   good_morning: "Good Morning (09:00–18:00)",
   midnight_hot: "Midnight Hot (21:00–12:00)",
   overnight: "Chill All Day (14:00–12:00)",
+  multi_night: "Multi-night",
   fast_furious: "Fast & Furious",
 };
 

@@ -1,7 +1,7 @@
 export type { Database } from "./database.types";
 export type { Json } from "./database.types";
 
-export type BookingType = "good_morning" | "midnight_hot" | "overnight" | "fast_furious";
+export type BookingType = "good_morning" | "midnight_hot" | "overnight" | "multi_night" | "fast_furious";
 export type BookingStatus = "pending" | "confirmed" | "cancelled" | "completed";
 
 export interface Room {

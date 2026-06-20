@@ -81,8 +81,10 @@ export default function RoomPicker({ bookingType, startAt, endAt, hours, onSelec
               key={room.id}
               onClick={() => {
                 const isFf = bookingType === "fast_furious" && hours;
+                const isMn = bookingType === "multi_night" && hours;
                 const actualPrice = isFf
                   ? getFastFuriousPrice(hours as FastFuriousHours, room.id)
+                  : isMn ? room.price * hours
                   : room.price;
                 onSelect(room.id, room.name, actualPrice);
               }}
@@ -103,7 +105,9 @@ export default function RoomPicker({ bookingType, startAt, endAt, hours, onSelec
                     <p className="text-base font-bold text-brown flex-shrink-0">
                       {(bookingType === "fast_furious" && hours
                         ? getFastFuriousPrice(hours as FastFuriousHours, room.id)
-                        : room.price
+                        : bookingType === "multi_night" && hours
+                          ? room.price * hours
+                          : room.price
                       ).toLocaleString("vi-VN")}đ
                     </p>
                   </div>
@@ -155,7 +159,7 @@ const FALLBACK_ROOMS = [
     capacity: "2 người lớn + 1 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/ari-1.jpg",
-    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, fast_furious: 399000 },
+    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, multi_night: 849000, fast_furious: 399000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111102",
@@ -164,7 +168,7 @@ const FALLBACK_ROOMS = [
     capacity: "2 người lớn + 1 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/crimson-1.jpg",
-    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, fast_furious: 399000 },
+    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, multi_night: 849000, fast_furious: 399000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111103",
@@ -173,7 +177,7 @@ const FALLBACK_ROOMS = [
     capacity: "2 người lớn + 1 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/gatou-1.jpg",
-    prices: { good_morning: 649000, midnight_hot: 649000, overnight: 749000, fast_furious: 399000 },
+    prices: { good_morning: 649000, midnight_hot: 649000, overnight: 749000, multi_night: 749000, fast_furious: 399000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111104",
@@ -182,7 +186,7 @@ const FALLBACK_ROOMS = [
     capacity: "4 người lớn + 2 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/inme-1.jpg",
-    prices: { good_morning: 799000, midnight_hot: 799000, overnight: 949000, fast_furious: 449000 },
+    prices: { good_morning: 799000, midnight_hot: 799000, overnight: 949000, multi_night: 949000, fast_furious: 449000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111105",
@@ -191,7 +195,7 @@ const FALLBACK_ROOMS = [
     capacity: "2 người lớn",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/rome-1.jpg",
-    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, fast_furious: 399000 },
+    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, multi_night: 849000, fast_furious: 399000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111106",
@@ -200,7 +204,7 @@ const FALLBACK_ROOMS = [
     capacity: "4 người lớn + 2 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/tame-1.jpg",
-    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, fast_furious: 399000 },
+    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, multi_night: 849000, fast_furious: 399000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111107",
@@ -209,7 +213,7 @@ const FALLBACK_ROOMS = [
     capacity: "2 người lớn + 1 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/tome-1.jpg",
-    prices: { good_morning: 799000, midnight_hot: 799000, overnight: 949000, fast_furious: 449000 },
+    prices: { good_morning: 799000, midnight_hot: 799000, overnight: 949000, multi_night: 949000, fast_furious: 449000 },
   },
   {
     id: "11111111-1111-1111-1111-111111111108",
@@ -218,6 +222,6 @@ const FALLBACK_ROOMS = [
     capacity: "2 người lớn + 1 trẻ em",
     amenities: ["WiFi", "Điều hoà", "Bồn tắm", "Tủ lạnh"],
     image: "/images/rooms/woody-1.jpg",
-    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, fast_furious: 399000 },
+    prices: { good_morning: 749000, midnight_hot: 749000, overnight: 849000, multi_night: 849000, fast_furious: 399000 },
   },
 ];

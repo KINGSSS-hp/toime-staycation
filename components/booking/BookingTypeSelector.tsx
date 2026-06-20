@@ -7,6 +7,7 @@ const types: { key: BookingType; time: string }[] = [
   { key: "good_morning", time: "09:00 → 18:00" },
   { key: "midnight_hot", time: "21:00 → 12:00" },
   { key: "overnight", time: "14:00 → 12:00 (+1)" },
+  { key: "multi_night", time: "14:00 → 12:00 (2+ đêm)" },
   { key: "fast_furious", time: "3h · 4h · 5h" },
 ];
 
