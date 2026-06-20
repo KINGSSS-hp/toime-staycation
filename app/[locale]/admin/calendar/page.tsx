@@ -112,7 +112,7 @@ export default function CalendarPage() {
                     const isToday = day.toDateString() === new Date().toDateString();
                     const isSunday = day.getDay() === 0;
                     return (
-                      <th key={day.toISOString()} className={`px-1 py-3 text-center font-medium min-w-[36px] ${isToday ? "bg-brown/10 text-brown" : isSunday ? "text-red-400" : "text-text-muted"}`}>
+                      <th key={day.toISOString()} className={`px-1 py-3 text-center font-medium min-w-[68px] ${isToday ? "bg-brown/10 text-brown" : isSunday ? "text-red-400" : "text-text-muted"}`}>
                         <div>{day.getDate()}</div>
                         <div className="text-[10px] font-normal">{day.toLocaleDateString("vi-VN", { weekday: "narrow" })}</div>
                       </th>
@@ -133,10 +133,10 @@ export default function CalendarPage() {
                             return (
                               <div
                                 key={b.id}
-                                className={`${colors.bg} ${colors.text} border ${colors.border} rounded px-1 py-0.5 mb-0.5 truncate cursor-default`}
+                                className={`${colors.bg} ${colors.text} border ${colors.border} rounded px-1 py-0.5 mb-0.5 cursor-default text-[10px] leading-tight`}
                                 title={`${b.guest_name} · ${TYPE_LABELS[b.booking_type]} · ${b.status}`}
                               >
-                                {b.guest_name.split(" ").pop()}
+                                {b.guest_name}
                               </div>
                             );
                           })}
