@@ -91,14 +91,13 @@ export default function RoomPicker({ bookingType, startAt, endAt, hours, onSelec
               className="w-full text-left bg-white rounded-2xl p-5 border border-border/40 hover:border-brown/30 hover:shadow-md transition-all duration-200 cursor-pointer group min-h-[100px]"
             >
               <div className="flex gap-4 items-center">
-                <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
-                  <img
-                    src={room.image}
-                    alt={room.name}
-                    className="w-full h-full object-cover object-center"
-                    loading="lazy"
-                  />
-                </div>
+                <img
+                  src={room.image}
+                  alt={room.name}
+                  className="w-20 h-20 rounded-xl object-cover object-center flex-shrink-0"
+                  style={{ minWidth: 80, minHeight: 80 }}
+                  loading="lazy"
+                />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <h4 className="text-base font-semibold text-brown-dark group-hover:text-brown transition-colors">
