@@ -81,7 +81,13 @@ export function ownerNewBooking(data: BookingNotifyData): string {
   }
   msg += `\n`;
   msg += `💳 Thanh toán: ${STATUS_LABELS[data.status]}\n`;
-  if (data.note) msg += `📝 Ghi chú: ${data.note}\n`;
+  msg += `\n`;
+  if (data.note) {
+    msg += `📝 <b>Ghi chú khách:</b>\n`;
+    msg += `"${data.note}"\n`;
+  } else {
+    msg += `📝 Ghi chú: Không có\n`;
+  }
   msg += `\n🔖 ID: ${data.bookingId.slice(0, 8).toUpperCase()}`;
 
   return msg;
